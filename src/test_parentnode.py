@@ -63,3 +63,6 @@ class TestParentNode(unittest.TestCase):
             parent_node = ParentNode("p", None)
             parent_node.to_html()
         pass
+
+if __name__ == "__main__":
+    unittest.main()

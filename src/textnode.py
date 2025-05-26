@@ -41,24 +41,3 @@ def text_node_to_html_node(text_node):
     elif text_node.text_type == TextType.IMAGE:
         return LeafNode("img", "", text_node.url)
     raise Exception("Incorrect or no TextType")
-
-def split_nodes_delimiter(old_nodes, delimiter, text_type):
-    new_nodes = []
-    for old in old_nodes:
-        if old.text_type != TextType.TEXT:
-            new_nodes.append(old)
-        else:
-            if delimiter in old.text:
-                if (old.text.count(delimiter)) % 2 != 0:
-                    raise Exception("Closing delimiter not found")
-                else:
-                    split_text = old.text.split(sep=delimiter)
-                    for s in split_text:
-                        if split_text.index(s) % 2 != 0:
-                            new_nodes.append(TextNode(s, text_type))
-                        else:
-                            new_nodes.append(TextNode(s, TextType.TEXT))
-            else:
-                new_nodes.append(old)
-            
-    return new_nodes
