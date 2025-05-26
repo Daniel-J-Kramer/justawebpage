@@ -15,7 +15,24 @@ class TestMarkDownInterpreter(unittest.TestCase):
         matches = extract_markdown_links(
             "This is text with a [link](https://www.google.com)"
         )
-        self.assertListEqual([("image", "https://www.google.com")])
+        self.assertListEqual([("link", "https://www.google.com")], matches)
+
+    def test_extract_markdown_images_multi(self):
+        matches = extract_markdown_images(
+            "This is text with an ![image](https://www.google.com) \
+             and another one ![image2](https://www.duckduckgo.com)"
+        )
+        self.assertListEqual([("image", "https://www.google.com"),
+                              ("image2", "https://www.duckduckgo.com")],
+                              matches)
+
+    def test_extract_markdown_link_multi(self):
+        matches = extract_markdown_links(
+            "This is text with a [link](https://www.google.com) \
+            and another one [link2](https://www.duckduckgo.com)"
+        )
+        self.assertListEqual([("link", "https://www.google.com"), ("link2", "https://www.duckduckgo.com")],
+                            matches)
 
 if __name__ == "__main__":
     unittest.main()
